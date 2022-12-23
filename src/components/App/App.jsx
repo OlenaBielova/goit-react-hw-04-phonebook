@@ -31,10 +31,11 @@ export function App(data) {
   };
 
   const getFilteredContacts = () => {
-    const normalizedFilter = filterValue.toLocaleLowerCase();
-    return contacts.filter(contact =>
+    const normalizedFilter = filterValue.toLowerCase();
+    const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
+    return filteredContacts;
   };
 
   const deleteContact = ID => {
