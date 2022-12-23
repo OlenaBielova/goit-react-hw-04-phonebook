@@ -3,6 +3,8 @@ import { ContactForm } from '../Form/Form';
 import { Filter } from '../Filter/Filter';
 import { ContactList } from '../ContactList/ContactList';
 import { Container } from './App.styled';
+import PropTypes from 'prop-types';
+
 
 export function App(data) {
   const savedContacts = JSON.parse(localStorage.getItem('contacts'));
@@ -15,7 +17,6 @@ export function App(data) {
   }, [contacts]);
 
   const handleFormSubmit = data => {
-    console.log(data);
     const normalizedName = data.name.toLowerCase();
     const repeatedNameList = contacts.filter(
       contact => contact.name.toLowerCase() === normalizedName
@@ -56,3 +57,11 @@ export function App(data) {
     </Container>
   );
 }
+
+App.propTypes = {
+  data: PropTypes.exact({
+        name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+id: PropTypes.string.isRequired,
+  }),
+};
