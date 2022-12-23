@@ -32,11 +32,20 @@ export function App(data) {
 
   const getFilteredContacts = () => {
     const normalizedFilter = filterValue.toLowerCase();
-    const filteredContacts = contacts.filter(contact =>
+    
+    if (contacts.length > 0) {
+      const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
     return filteredContacts;
-  };
+    }
+    }
+
+  //   const filteredContacts = contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(normalizedFilter)
+  //   );
+  //   return filteredContacts;
+  // };
 
   const deleteContact = ID => {
     setContacts(contacts.filter(contact => contact.id !== ID));
