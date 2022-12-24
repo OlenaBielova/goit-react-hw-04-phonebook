@@ -5,12 +5,15 @@ import { ContactList } from '../ContactList/ContactList';
 import { Container } from './App.styled';
 import PropTypes from 'prop-types';
 
-
 export function App(data) {
-  const savedContacts = JSON.parse(localStorage.getItem('contacts'));
-
-  const [contacts, setContacts] = useState(savedContacts);
+  const [contacts, setContacts] = useState([]);
   const [filterValue, setFilterValue] = useState('');
+
+  useEffect(() => {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(contacts);
+    setContacts(parsedContacts);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -32,20 +35,11 @@ export function App(data) {
 
   const getFilteredContacts = () => {
     const normalizedFilter = filterValue.toLowerCase();
-    
-    if (contacts.length > 0) {
-      const filteredContacts = contacts.filter(contact =>
+    const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
     return filteredContacts;
-    }
-    }
-
-  //   const filteredContacts = contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normalizedFilter)
-  //   );
-  //   return filteredContacts;
-  // };
+  };
 
   const deleteContact = ID => {
     setContacts(contacts.filter(contact => contact.id !== ID));
@@ -70,8 +64,8 @@ export function App(data) {
 
 App.propTypes = {
   data: PropTypes.exact({
-        name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
-id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
   }),
 };
